@@ -76,7 +76,7 @@ namespace IslandUniverse
             var ui = this.container.GetRequiredService<IUiManagerService>();
             var pluginManager = this.container.GetRequiredService<IPluginManagerService>();
 
-            ui.OnBuildUi += () => MainWindow.Draw(pluginManager, StorageDir);
+            ui.OnBuildUi += () => MainWindow.Draw(ui);
             
             ui.CreateScene(iniPath: Path.Combine(StorageDir, "IslandUniverseImGui.ini"));
         }
@@ -90,6 +90,7 @@ namespace IslandUniverse
                 .AddTransient<IDirectoryWatchService, DirectoryWatchService>()
                 .AddSingleton<IAgentManagerService, AgentManagerService>()
                 .AddSingleton<IProcedureManagerService, ProcedureManagerService>()
+                .AddSingleton<IDiagnosticsService, DiagnosticsService>()
 
                 .AddSingleton<HttpClient>()
 

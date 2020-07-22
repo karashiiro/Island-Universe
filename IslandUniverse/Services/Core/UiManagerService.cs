@@ -1,6 +1,8 @@
 ﻿using ImGuiNET;
 using ImGuiScene;
+using IslandUniverse.UiStyles;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Numerics;
@@ -18,10 +20,14 @@ namespace IslandUniverse.Services.Core
 
         private SimpleImGuiScene scene;
 
+        public IDictionary<string, ImFontPtr> Fonts { get; }
+
         public event BuildUIDelegate OnBuildUi;
 
         public UiManagerService()
         {
+            this.Fonts = new Dictionary<string, ImFontPtr>();
+
             BuildTrayIcon();
         }
 
@@ -48,45 +54,25 @@ namespace IslandUniverse.Services.Core
                 
                 var io = ImGui.GetIO();
 
-                var defaultFontStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("IslandUniverse.Assets.Ubuntu-Regular.ttf");
+                var defaultFontStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("IslandUniverse.Assets.Roboto-Regular.ttf");
                 var dfIntPtr = Marshal.AllocHGlobal((int)defaultFontStream.Length);
                 var defaultFont = new UnmanagedMemoryStream((byte*)dfIntPtr.ToPointer(), defaultFontStream.Length, defaultFontStream.Length, FileAccess.Write);
                 defaultFontStream.CopyTo(defaultFont);
 
-                io.Fonts.AddFontFromMemoryTTF(dfIntPtr, 13, 13f, fontConfig);
+                // ImGui's font upscaling is pretty bad, so we add some larger versions in advance.
+                var fontPtr1 = io.Fonts.AddFontFromMemoryTTF(dfIntPtr, 13, 13f, fontConfig);
+                this.Fonts.Add("Roboto Regular 13px", fontPtr1);
+                var fontPtr2 = io.Fonts.AddFontFromMemoryTTF(dfIntPtr, 18, 18, fontConfig);
+                this.Fonts.Add("Roboto Regular 18px", fontPtr2);
+                var fontPtr3 = io.Fonts.AddFontFromMemoryTTF(dfIntPtr, 24, 24f, fontConfig);
+                this.Fonts.Add("Roboto Regular 24px", fontPtr3);
+
                 io.Fonts.Build();
 
                 fontConfig.Destroy();
             }
 
-            // Copy Dalamud's style, it's good
-            var style = ImGui.GetStyle();
-            style.GrabRounding = 3f;
-            style.FrameRounding = 4f;
-            style.WindowRounding = 4f;
-            style.WindowBorderSize = 0f;
-
-            style.Colors[(int)ImGuiCol.WindowBg] = new Vector4(0.06f, 0.06f, 0.06f, 0.87f);
-            style.Colors[(int)ImGuiCol.FrameBg] = new Vector4(0.29f, 0.29f, 0.29f, 0.54f);
-            style.Colors[(int)ImGuiCol.FrameBgHovered] = new Vector4(0.54f, 0.54f, 0.54f, 0.40f);
-            style.Colors[(int)ImGuiCol.FrameBgActive] = new Vector4(0.64f, 0.64f, 0.64f, 0.67f);
-            style.Colors[(int)ImGuiCol.TitleBgActive] = new Vector4(0.29f, 0.29f, 0.29f, 1.00f);
-            style.Colors[(int)ImGuiCol.TitleBgCollapsed] = new Vector4(0.19f, 0.19f, 0.19f, 1.00f); // Minor tweak so this doesn't go transparent when collapsed
-            style.Colors[(int)ImGuiCol.CheckMark] = new Vector4(0.86f, 0.86f, 0.86f, 1.00f);
-            style.Colors[(int)ImGuiCol.SliderGrab] = new Vector4(0.54f, 0.54f, 0.54f, 1.00f);
-            style.Colors[(int)ImGuiCol.SliderGrabActive] = new Vector4(0.67f, 0.67f, 0.67f, 1.00f);
-            style.Colors[(int)ImGuiCol.Button] = new Vector4(0.71f, 0.71f, 0.71f, 0.40f);
-            style.Colors[(int)ImGuiCol.ButtonHovered] = new Vector4(0.47f, 0.47f, 0.47f, 1.00f);
-            style.Colors[(int)ImGuiCol.ButtonActive] = new Vector4(0.74f, 0.74f, 0.74f, 1.00f);
-            style.Colors[(int)ImGuiCol.Header] = new Vector4(0.59f, 0.59f, 0.59f, 0.31f);
-            style.Colors[(int)ImGuiCol.HeaderHovered] = new Vector4(0.50f, 0.50f, 0.50f, 0.80f);
-            style.Colors[(int)ImGuiCol.HeaderActive] = new Vector4(0.60f, 0.60f, 0.60f, 1.00f);
-            style.Colors[(int)ImGuiCol.ResizeGrip] = new Vector4(0.79f, 0.79f, 0.79f, 0.25f);
-            style.Colors[(int)ImGuiCol.ResizeGripHovered] = new Vector4(0.78f, 0.78f, 0.78f, 0.67f);
-            style.Colors[(int)ImGuiCol.ResizeGripActive] = new Vector4(0.88f, 0.88f, 0.88f, 0.95f);
-            style.Colors[(int)ImGuiCol.Tab] = new Vector4(0.23f, 0.23f, 0.23f, 0.86f);
-            style.Colors[(int)ImGuiCol.TabHovered] = new Vector4(0.71f, 0.71f, 0.71f, 0.80f);
-            style.Colors[(int)ImGuiCol.TabActive] = new Vector4(0.36f, 0.36f, 0.36f, 1.00f);
+            UiThemeDark.Setup();
 
             this.scene.Run();
         }

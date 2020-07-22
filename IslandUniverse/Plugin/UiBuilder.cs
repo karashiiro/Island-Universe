@@ -1,5 +1,7 @@
-﻿using IslandUniverse.Services.Core;
+﻿using ImGuiNET;
+using IslandUniverse.Services.Core;
 using System;
+using System.Collections.Generic;
 using static ImGuiScene.SimpleImGuiScene;
 
 namespace IslandUniverse.Plugin
@@ -7,6 +9,8 @@ namespace IslandUniverse.Plugin
     public class UiBuilder : IUiBuilder, IDisposable
     {
         private readonly IUiManagerService uiManager;
+
+        public IDictionary<string, ImFontPtr> Fonts => this.uiManager.Fonts;
 
         public event BuildUIDelegate OnBuildUi;
 

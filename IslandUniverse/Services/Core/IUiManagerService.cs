@@ -1,9 +1,16 @@
-﻿using static ImGuiScene.SimpleImGuiScene;
+﻿using ImGuiNET;
+using System.Collections.Generic;
+using static ImGuiScene.SimpleImGuiScene;
 
 namespace IslandUniverse.Services.Core
 {
     public interface IUiManagerService
     {
+        /// <summary>
+        ///     Loaded fonts.
+        /// </summary>
+        IDictionary<string, ImFontPtr> Fonts { get; }
+
         /// <summary>
         ///     Interface builder hook for ImGui.
         /// </summary>

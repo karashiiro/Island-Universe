@@ -15,11 +15,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Ubuntu-Regular.ttf" />
+    <None Remove="Assets\Roboto-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Assets\Ubuntu-Regular.ttf" />
+    <EmbeddedResource Include="Assets\Roboto-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
