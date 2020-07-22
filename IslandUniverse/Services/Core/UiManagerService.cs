@@ -62,7 +62,7 @@ namespace IslandUniverse.Services.Core
                 // ImGui's font upscaling is pretty bad, so we add some larger versions in advance.
                 var fontPtr1 = io.Fonts.AddFontFromMemoryTTF(dfIntPtr, 13, 13f, fontConfig);
                 this.Fonts.Add("Roboto Regular 13px", fontPtr1);
-                var fontPtr2 = io.Fonts.AddFontFromMemoryTTF(dfIntPtr, 18, 18, fontConfig);
+                var fontPtr2 = io.Fonts.AddFontFromMemoryTTF(dfIntPtr, 18, 18f, fontConfig);
                 this.Fonts.Add("Roboto Regular 18px", fontPtr2);
                 var fontPtr3 = io.Fonts.AddFontFromMemoryTTF(dfIntPtr, 24, 24f, fontConfig);
                 this.Fonts.Add("Roboto Regular 24px", fontPtr3);
