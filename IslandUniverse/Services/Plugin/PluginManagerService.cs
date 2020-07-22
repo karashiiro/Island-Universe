@@ -15,9 +15,7 @@ namespace IslandUniverse.Services.Plugin
 
         public IEnumerable<IIslandUniversePlugin> LoadedPlugins => this.loadedPlugins.Select(plugin => plugin.Instance);
 
-        public IEnumerable<Type> LoadedAgentTypes => this.loadedPlugins
-            .SelectMany(plugin => plugin.Instance.GetType().Assembly.GetTypes()
-                .Where(type => type.GetInterface(typeof(IAgent).Name) != null));
+        public IEnumerable<Type> LoadedAgentTypes => this.loadedPlugins.SelectMany(plugin => plugin.ExposedAgentTypes);
 
         public PluginManagerService(IServiceProvider container)
         {
@@ -50,10 +48,15 @@ namespace IslandUniverse.Services.Plugin
                 var instance = (IIslandUniversePlugin)Activator.CreateInstance(pluginType);
                 var pluginInterface = new IslandUniversePluginInterface(this.container, instance.UniqueName);
                 instance.Initialize(pluginInterface);
+
+                var exposedAgentTypes = assembly.GetTypes()
+                    .Where(type => type.GetInterface(typeof(IAgent).Name) != null);
+
                 pluginInstances.Add(new PluginRuntimeInformation
                 {
                     LoadContext = pluginLoadContext,
                     Instance = instance,
+                    ExposedAgentTypes = exposedAgentTypes,
                     UniqueName = instance.UniqueName,
                 });
             }
@@ -87,6 +90,7 @@ namespace IslandUniverse.Services.Plugin
         {
             public PluginLoadContext LoadContext { get; set; }
             public IIslandUniversePlugin Instance { get; set; }
+            public IEnumerable<Type> ExposedAgentTypes { get; set; }
             public string UniqueName { get; set; }
         }
     }
