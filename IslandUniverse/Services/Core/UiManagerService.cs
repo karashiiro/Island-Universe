@@ -3,6 +3,7 @@ using ImGuiScene;
 using System;
 using System.Drawing;
 using System.IO;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using static ImGuiScene.SimpleImGuiScene;
@@ -29,14 +30,33 @@ namespace IslandUniverse.Services.Core
             {
                 Title = "ImGui Overlay",
                 Fullscreen = true,
-                TransparentColor = new float[] { 0, 0, 0, 0 },
+                TransparentColor = new float[] { 0, 0, 0 },
             })
             {
                 ImGuiIniPath = iniPath,
             };
 
-            this.scene.OnBuildUI += ImGui.ShowDemoWindow;
+            this.scene.Renderer.ClearColor = new Vector4(0, 0, 0, 0);
+
             this.scene.OnBuildUI += OnBuildUi;
+
+            unsafe
+            {
+                ImFontConfigPtr fontConfig = ImGuiNative.ImFontConfig_ImFontConfig();
+                fontConfig.GlyphExtraSpacing.X = 0.5f;
+                
+                var io = ImGui.GetIO();
+                io.Fonts.AddFontFromFileTTF(@"Assets\Roboto-Medium.ttf", 14f, fontConfig);
+                io.Fonts.Build();
+
+                fontConfig.Destroy();
+            }
+
+            var style = ImGui.GetStyle();
+            style.GrabRounding = 3f;
+            style.FrameRounding = 4f;
+            style.WindowRounding = 4f;
+            style.WindowBorderSize = 0f;
 
             this.scene.Run();
         }
