@@ -1,6 +1,4 @@
-﻿using System.Dynamic;
-
-namespace IslandUniverse.Agents
+﻿namespace IslandUniverse.Agents
 {
     public interface IAgent
     {
@@ -9,12 +7,6 @@ namespace IslandUniverse.Agents
         /// </summary>
         [AgentEditable]
         string Name { get; set; }
-
-        /// <summary>
-        ///     The time in seconds between agent activations.
-        /// </summary>
-        [AgentEditable]
-        double IntervalSeconds { get; set; }
 
         /// <summary>
         ///     The formatted display name of this type of agent.
@@ -33,6 +25,6 @@ namespace IslandUniverse.Agents
         /// </summary>
         /// <param name="input">Any object recieved from a previous agent in a procedure.</param>
         /// <returns>Any object that should be passed onto a future agent.</returns>
-        ExpandoObject Execute(ExpandoObject input);
+        dynamic Execute(dynamic input);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using ImGuiNET;
-using IslandUniverse.Services.Core;
+using IslandUniverse.Services.Plugin;
 using System.Numerics;
 
 namespace IslandUniverse.Windows

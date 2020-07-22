@@ -1,4 +1,6 @@
-﻿using IslandUniverse.Services.Core;
+﻿using IslandUniverse.Services.Agent;
+using IslandUniverse.Services.Core;
+using IslandUniverse.Services.Plugin;
 using IslandUniverse.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -86,6 +88,8 @@ namespace IslandUniverse
                 .AddSingleton<IPluginManagerService, PluginManagerService>()
                 .AddSingleton<IConfigurationManagerService, ConfigurationManagerService>()
                 .AddTransient<IDirectoryWatchService, DirectoryWatchService>()
+                .AddSingleton<IAgentManagerService, AgentManagerService>()
+                .AddSingleton<IProcedureManagerService, ProcedureManagerService>()
 
                 .AddSingleton<HttpClient>()
 

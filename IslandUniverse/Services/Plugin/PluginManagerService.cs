@@ -1,11 +1,12 @@
-﻿using IslandUniverse.Plugin;
+﻿using IslandUniverse.Agents;
+using IslandUniverse.Plugin;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace IslandUniverse.Services.Core
+namespace IslandUniverse.Services.Plugin
 {
     public class PluginManagerService : IPluginManagerService
     {
@@ -13,6 +14,10 @@ namespace IslandUniverse.Services.Core
         private readonly List<PluginRuntimeInformation> loadedPlugins;
 
         public IEnumerable<IIslandUniversePlugin> LoadedPlugins => this.loadedPlugins.Select(plugin => plugin.Instance);
+
+        public IEnumerable<Type> LoadedAgentTypes => this.loadedPlugins
+            .SelectMany(plugin => plugin.Instance.GetType().Assembly.GetTypes()
+                .Where(type => type.GetInterface(typeof(IAgent).Name) != null));
 
         public PluginManagerService(IServiceProvider container)
         {
