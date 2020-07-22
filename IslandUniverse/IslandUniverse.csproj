@@ -15,6 +15,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Ubuntu-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\Ubuntu-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
@@ -36,16 +44,6 @@
     <Reference Include="SDL2-CS">
       <HintPath>Lib\SDL2-CS.dll</HintPath>
     </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Assets\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Assets\Roboto-Medium.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
