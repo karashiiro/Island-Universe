@@ -11,8 +11,8 @@ namespace IslandUniverse.Windows
             ImGui.SetNextWindowSize(new Vector2(600, 450));
             ImGui.Begin("Island Universe", ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoScrollbar);
             {
-                var fontPtr1 = ui.Fonts["Roboto Regular 18px"];
-                ImGui.PushFont(fontPtr1);
+                var fontPtr = ui.Fonts["Roboto Regular 18px"];
+                ImGui.PushFont(fontPtr);
                 ImGui.Text("Welcome to Island Universe!");
                 ImGui.PopFont();
 
@@ -40,8 +40,7 @@ namespace IslandUniverse.Windows
                         ImGui.GetColorU32(ImGuiCol.Border));
                     ImGui.NextColumn();
                     {
-                        var fontPtr2 = ui.Fonts["Roboto Regular 18px"];
-                        ImGui.PushFont(fontPtr2);
+                        ImGui.PushFont(fontPtr);
                         ImGui.SetWindowFontScale(14f / 18f);
                         ImGui.NewLine();
                         ImGui.Text("Agents");
