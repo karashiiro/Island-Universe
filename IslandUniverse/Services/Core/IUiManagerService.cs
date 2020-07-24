@@ -1,4 +1,5 @@
 ﻿using ImGuiNET;
+using IslandUniverse.UiStyles;
 using System.Collections.Generic;
 using static ImGuiScene.SimpleImGuiScene;
 
@@ -21,5 +22,11 @@ namespace IslandUniverse.Services.Core
         /// </summary>
         /// <param name="iniPath">The path to the ImGui ini file location.</param>
         void CreateScene(string iniPath);
+
+        /// <summary>
+        ///     Sets the UI style.
+        /// </summary>
+        /// <param name="style"></param>
+        void SetUiStyle(UiStyle style);
     }
 }

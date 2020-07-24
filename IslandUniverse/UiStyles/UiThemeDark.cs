@@ -5,7 +5,7 @@ namespace IslandUniverse.UiStyles
 {
     public static class UiThemeDark
     {
-        public static void Setup()
+        public static bool Setup()
         {
             // Copy Dalamud's style, it's good
             var style = ImGui.GetStyle();
@@ -35,6 +35,8 @@ namespace IslandUniverse.UiStyles
             style.Colors[(int)ImGuiCol.Tab] = new Vector4(0.23f, 0.23f, 0.23f, 0.86f);
             style.Colors[(int)ImGuiCol.TabHovered] = new Vector4(0.71f, 0.71f, 0.71f, 0.80f);
             style.Colors[(int)ImGuiCol.TabActive] = new Vector4(0.36f, 0.36f, 0.36f, 1.00f);
+
+            return true;
         }
     }
 }

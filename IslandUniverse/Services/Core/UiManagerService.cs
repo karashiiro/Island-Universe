@@ -15,6 +15,8 @@ namespace IslandUniverse.Services.Core
 {
     public class UiManagerService : IUiManagerService, IDisposable
     {
+        public const UiStyle DefaultUiStyle = UiStyle.Dark;
+
         private NotifyIcon trayIcon;
         private ContextMenuStrip trayMenu;
 
@@ -72,7 +74,7 @@ namespace IslandUniverse.Services.Core
                 fontConfig.Destroy();
             }
 
-            UiThemeDark.Setup();
+            SetUiStyle(DefaultUiStyle);
 
             this.scene.Run();
         }
@@ -92,6 +94,15 @@ namespace IslandUniverse.Services.Core
 
             trayIcon.ContextMenuStrip = trayMenu;
             trayIcon.Visible = true;
+        }
+
+        public void SetUiStyle(UiStyle style)
+        {
+            _ = style switch
+            {
+                UiStyle.Dark => UiThemeDark.Setup(),
+                _ => throw new NotImplementedException(),
+            };
         }
 
         private void Show(object sender, EventArgs e)

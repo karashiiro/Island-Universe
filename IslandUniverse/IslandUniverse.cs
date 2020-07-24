@@ -74,9 +74,9 @@ namespace IslandUniverse
         private void InitializeScene()
         {
             var ui = this.container.GetRequiredService<IUiManagerService>();
-            var pluginManager = this.container.GetRequiredService<IPluginManagerService>();
+            var agentMan = this.container.GetRequiredService<IAgentManagerService>();
 
-            ui.OnBuildUi += () => MainWindow.Draw(ui);
+            ui.OnBuildUi += () => MainWindow.Draw(ui, agentMan);
             
             ui.CreateScene(iniPath: Path.Combine(StorageDir, "IslandUniverseImGui.ini"));
         }
