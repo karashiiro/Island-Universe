@@ -65,10 +65,16 @@ namespace IslandUniverse
 
         private void WatchPluginFolder()
         {
-            var directoryWatcher = this.container.GetRequiredService<IDirectoryWatchService>();
             var pluginManager = this.container.GetRequiredService<IPluginManagerService>();
 
-            directoryWatcher.SetAddFileWatch(PluginDir, "*.dll", pluginManager.LoadPluginAssembly);
+            var fw = new FileSystemWatcher
+            {
+                Path = PluginDir,
+                Filter = "*dll",
+            };
+
+            fw.Created += (sender, e) => pluginManager.LoadPluginAssembly(e.FullPath);
+            fw.EnableRaisingEvents = true;
         }
 
         private void InitializeScene()
@@ -87,7 +93,6 @@ namespace IslandUniverse
                 .AddSingleton<IUiManagerService, UiManagerService>()
                 .AddSingleton<IPluginManagerService, PluginManagerService>()
                 .AddSingleton<IConfigurationManagerService, ConfigurationManagerService>()
-                .AddTransient<IDirectoryWatchService, DirectoryWatchService>()
                 .AddSingleton<IAgentManagerService, AgentManagerService>()
                 .AddSingleton<IProcedureManagerService, ProcedureManagerService>()
                 .AddSingleton<IDiagnosticsService, DiagnosticsService>()
