@@ -24,6 +24,7 @@ namespace IslandUniverse.Windows
                 ImGui.Columns(2, "##MainWindowColumns1", border: false);
                 {
                     ImGui.Text("Recent Procedure Executions:");
+
                     if (ImGui.Button("", new Vector2(360, 18)))
                     {
                     }
@@ -44,7 +45,7 @@ namespace IslandUniverse.Windows
                     ImGui.NewLine();
                     if (ImGui.Button("Agents", new Vector2(160, 22)))
                     {
-                        State = WindowState.AgentSetup;
+                        State = WindowState.AgentIndex;
                     }
                     if (ImGui.Button("Procedures", new Vector2(160, 22)))
                     {

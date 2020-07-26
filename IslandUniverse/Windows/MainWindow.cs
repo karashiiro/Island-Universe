@@ -19,7 +19,7 @@ namespace IslandUniverse.Windows
             _ = State switch
             {
                 WindowState.Index => DrawIndex(ui),
-                WindowState.AgentIndex => DrawAgentIndex(agentMan),
+                WindowState.AgentIndex => DrawAgentIndex(ui, agentMan),
                 WindowState.Settings => DrawSettings(ui),
                 _ => throw new NotImplementedException(),
             };
@@ -31,6 +31,7 @@ namespace IslandUniverse.Windows
             Index,
             ProcedureIndex,
             ProcedureGraph,
+            ProcedureRunSummary,
             AgentIndex,
             AgentSetup,
             Settings,
