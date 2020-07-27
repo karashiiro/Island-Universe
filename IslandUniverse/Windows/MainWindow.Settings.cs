@@ -26,6 +26,11 @@ namespace IslandUniverse.Windows
                 CurrentStyle = (UiStyle)selectedStyle;
             }
 
+            if (ImGui.Button("Done##Settings"))
+            {
+                State = WindowState.AgentIndex;
+            }
+
             return true;
         }
     }

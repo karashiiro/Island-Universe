@@ -29,6 +29,11 @@ namespace IslandUniverse.Windows
                                 property.SetMethod.Invoke(CurrentAgent, new[] { tempString });
                         }
                     }
+
+                    if (ImGui.Button("Done##AgentSetup"))
+                    {
+                        State = WindowState.AgentIndex;
+                    }
                 }
                 ImGui.GetWindowDrawList().AddLine(
                     ImGui.GetWindowPos() + new Vector2(392, 42),

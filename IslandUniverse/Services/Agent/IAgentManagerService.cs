@@ -1,13 +1,13 @@
 ﻿using IslandUniverse.Agents;
-using System.Collections.Generic;
 
 namespace IslandUniverse.Services.Agent
 {
     public interface IAgentManagerService
     {
-        /// <summary>
-        ///     A copy of the set of all living agents.
-        /// </summary>
-        public IList<AgentBase> Agents { get; }
+        public int Count { get; }
+
+        public void Add(AgentBase item);
+
+        public AgentBase this[int i] { get; set; }
     }
 }
