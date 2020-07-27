@@ -5,8 +5,8 @@ using System.Linq;
 
 namespace IslandUniverse.Services.Agent
 {
-    public class AgentManagerService : Collection<IAgent>, IAgentManagerService
+    public class AgentManagerService : Collection<AgentBase>, IAgentManagerService
     {
-        public IEnumerable<IAgent> Agents => this.ToList();
+        public IList<AgentBase> Agents => this.ToList();
     }
 }

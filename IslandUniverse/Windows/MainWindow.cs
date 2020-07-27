@@ -1,4 +1,5 @@
 ﻿using ImGuiNET;
+using IslandUniverse.Agents;
 using IslandUniverse.Services.Agent;
 using IslandUniverse.Services.Core;
 using IslandUniverse.UiStyles;
@@ -11,6 +12,7 @@ namespace IslandUniverse.Windows
     {
         private static WindowState State { get; set; } = WindowState.Index;
         private static UiStyle CurrentStyle { get; set; } = UiManagerService.DefaultUiStyle;
+        private static AgentBase CurrentAgent { get; set; }
 
         public static void Draw(IUiManagerService ui, IAgentManagerService agentMan)
         {
@@ -20,6 +22,7 @@ namespace IslandUniverse.Windows
             {
                 WindowState.Index => DrawIndex(ui),
                 WindowState.AgentIndex => DrawAgentIndex(ui, agentMan),
+                WindowState.AgentSetup => DrawAgentSetup(),
                 WindowState.Settings => DrawSettings(ui),
                 _ => throw new NotImplementedException(),
             };

@@ -8,6 +8,6 @@ namespace IslandUniverse.Services.Agent
         /// <summary>
         ///     A copy of the set of all living agents.
         /// </summary>
-        public IEnumerable<IAgent> Agents { get; }
+        public IList<AgentBase> Agents { get; }
     }
 }

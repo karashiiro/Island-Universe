@@ -4,7 +4,7 @@ namespace IslandUniverse.Agents.Procedures
 {
     public class Connection
     {
-        public IAgent Node { get; set; }
+        public AgentBase Node { get; set; }
 
         public IEnumerable<Connection> Receivers { get; set; }
 

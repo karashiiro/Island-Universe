@@ -14,7 +14,7 @@ namespace IslandUniverse.Services.Plugin
         public IEnumerable<IIslandUniversePlugin> LoadedPlugins { get; }
 
         /// <summary>
-        ///     A list of currently-loaded agent types. All of the types in the set implement <see cref="IAgent"/>.
+        ///     A list of currently-loaded agent types. All of the types in the set implement <see cref="AgentBase"/>.
         /// </summary>
         public IEnumerable<Type> LoadedAgentTypes { get; }
 

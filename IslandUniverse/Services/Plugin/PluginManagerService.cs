@@ -50,7 +50,7 @@ namespace IslandUniverse.Services.Plugin
                 instance.Initialize(pluginInterface);
 
                 var exposedAgentTypes = assembly.GetTypes()
-                    .Where(type => type.GetInterface(typeof(IAgent).Name) != null);
+                    .Where(type => type.GetInterface(typeof(AgentBase).Name) != null);
 
                 pluginInstances.Add(new PluginRuntimeInformation
                 {
