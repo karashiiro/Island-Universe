@@ -95,7 +95,7 @@ namespace IslandUniverse.Windows
         {
             var textColor = ImGui.GetColorU32(ImGuiCol.Text);
 
-            ImGui.BeginChild($"##{agent.AgentTypeName}{id}", new Vector2(65, 80));
+            ImGui.BeginChild($"##{agent.Name ?? ""}{id}", new Vector2(65, 80));
             {
                 var drawList = ImGui.GetWindowDrawList();
                 var windowPos = ImGui.GetWindowPos();
@@ -105,7 +105,7 @@ namespace IslandUniverse.Windows
                     CurrentAgent = agent;
                     State = WindowState.AgentSetup;
                 }
-                drawList.AddText(windowPos + new Vector2(4, 60), textColor, agent.Name);
+                drawList.AddText(windowPos + new Vector2(4, 60), textColor, agent.Name ?? "");
             }
             ImGui.EndChild();
         }

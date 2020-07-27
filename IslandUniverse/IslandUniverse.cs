@@ -81,9 +81,10 @@ namespace IslandUniverse
         {
             var ui = this.container.GetRequiredService<IUiManagerService>();
             var agentMan = this.container.GetRequiredService<IAgentManagerService>();
+            var pluginMan = this.container.GetRequiredService<IPluginManagerService>();
             var http = this.container.GetRequiredService<HttpClient>();
 
-            ui.OnBuildUi += () => MainWindow.Draw(ui, agentMan, http);
+            ui.OnBuildUi += () => MainWindow.Draw(ui, agentMan, pluginMan, http);
             
             ui.CreateScene(iniPath: Path.Combine(StorageDir, "IslandUniverseImGui.ini"));
         }

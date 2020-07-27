@@ -10,9 +10,9 @@ namespace IslandUniverse.Agents.Builtin
         [AgentEditable]
         public string Uri { get; set; }
 
-        public new string AgentTypeName => "HTTPStatusAgent";
-        public new string AgentIcon => "";
-        public new string AgentDescription => "Returns the status code of a resource at the specified URL.";
+        public static new string AgentTypeName => "HTTPStatusAgent";
+        public static new string AgentIcon => "";
+        public static new string AgentDescription => "Returns the status code of a resource at the specified URL.";
 
         public HttpStatusAgent(HttpClient http)
         {

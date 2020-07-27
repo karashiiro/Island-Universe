@@ -12,19 +12,19 @@
         ///     The formatted display name of this type of agent.
         /// </summary>
         [AgentMetadata]
-        public string AgentTypeName { get; }
+        public static string AgentTypeName { get; }
 
         /// <summary>
         ///     The icon for this agent.
         /// </summary>
         [AgentMetadata]
-        public string AgentIcon { get; }
+        public static string AgentIcon { get; }
 
         /// <summary>
         ///     A description of what this type of agent does.
         /// </summary>
         [AgentMetadata]
-        public string AgentDescription { get; }
+        public static string AgentDescription { get; }
 
         /// <summary>
         ///     The operative function of the agent.

@@ -2,6 +2,7 @@
 using IslandUniverse.Agents;
 using IslandUniverse.Services.Agent;
 using IslandUniverse.Services.Core;
+using IslandUniverse.Services.Plugin;
 using IslandUniverse.UiStyles;
 using System;
 using System.Net.Http;
@@ -15,7 +16,7 @@ namespace IslandUniverse.Windows
         private static UiStyle CurrentStyle { get; set; } = UiManagerService.DefaultUiStyle;
         private static AgentBase CurrentAgent { get; set; }
 
-        public static void Draw(IUiManagerService ui, IAgentManagerService agentMan, HttpClient http)
+        public static void Draw(IUiManagerService ui, IAgentManagerService agentMan, IPluginManagerService pluginMan, HttpClient http)
         {
             ImGui.SetNextWindowSize(new Vector2(600, 400));
             ImGui.Begin("Island Universe", ImGuiWindowFlags.NoResize);
@@ -23,7 +24,7 @@ namespace IslandUniverse.Windows
             {
                 WindowState.Index => DrawIndex(ui),
                 WindowState.AgentIndex => DrawAgentIndex(ui, agentMan, http),
-                WindowState.AgentSetup => DrawAgentSetup(),
+                WindowState.AgentSetup => DrawAgentSetup(pluginMan),
                 WindowState.Settings => DrawSettings(ui),
                 _ => throw new NotImplementedException(),
             };

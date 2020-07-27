@@ -1,4 +1,5 @@
 ﻿using IslandUniverse.Agents;
+using IslandUniverse.Agents.Builtin;
 using IslandUniverse.Plugin;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace IslandUniverse.Services.Plugin
 
         public IEnumerable<IIslandUniversePlugin> LoadedPlugins => this.loadedPlugins.Select(plugin => plugin.Instance);
 
-        public IEnumerable<Type> LoadedAgentTypes => this.loadedPlugins.SelectMany(plugin => plugin.ExposedAgentTypes);
+        public IEnumerable<Type> LoadedAgentTypes => BuiltinAgents.Types.Concat(this.loadedPlugins.SelectMany(plugin => plugin.ExposedAgentTypes));
 
         public PluginManagerService(IServiceProvider container)
         {

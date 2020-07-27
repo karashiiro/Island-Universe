@@ -1,5 +1,7 @@
 ﻿using ImGuiNET;
 using IslandUniverse.Agents;
+using IslandUniverse.Services.Agent;
+using IslandUniverse.Services.Plugin;
 using System.Linq;
 using System.Numerics;
 using System.Reflection;
@@ -8,9 +10,12 @@ namespace IslandUniverse.Windows
 {
     public static partial class MainWindow
     {
-        private static bool DrawAgentSetup()
+        private static int selectedAgentType;
+
+        private static bool DrawAgentSetup(IPluginManagerService pluginMan)
         {
             var properties = CurrentAgent.GetType().GetProperties(BindingFlags.FlattenHierarchy
+                | BindingFlags.Static
                 | BindingFlags.Instance
                 | BindingFlags.Public);
 
@@ -18,6 +23,9 @@ namespace IslandUniverse.Windows
             {
                 ImGui.Columns(2, "##MainWindowColumns3", border: false);
                 {
+                    ImGui.Combo("", ref selectedAgentType, pluginMan.LoadedAgentTypes
+                        .Select(agent => (string)agent.GetProperty("AgentTypeName").GetValue(null)).ToArray(), pluginMan.LoadedAgentTypes.Count());
+
                     foreach (var property in properties.Where(prop => prop.GetCustomAttribute<AgentEditableAttribute>(true) != null))
                     {
                         ImGui.Text(property.Name);
@@ -43,7 +51,7 @@ namespace IslandUniverse.Windows
                 {
                     ImGui.BeginChild("##AgentSetupDescription", new Vector2(200, 330));
                     var property = properties.FirstOrDefault(prop => prop.Name == "AgentDescription");
-                    ImGui.TextWrapped((string)property.GetValue(CurrentAgent));
+                    ImGui.TextWrapped((string)property.GetValue(null));
                     ImGui.EndChild();
                 }
             }
